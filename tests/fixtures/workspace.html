@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Service Operations Workspace</title></head>
+<body>
+<!-- Workspace / UI Builder: no iframe, everything is web components with shadow DOM -->
+<sn-workspace-layout></sn-workspace-layout>
+<div id="out"></div>
+<script>
+  const make = (parent, tag, html) => { const el = document.createElement(tag); parent.appendChild(el);
+                                        el.attachShadow({mode: 'open'}).innerHTML = html; return el; };
+  const layout = document.querySelector('sn-workspace-layout').attachShadow({mode: 'open'});
+  layout.innerHTML = '<now-record-form-section></now-record-form-section><div class="actions"></div>';
+  const section = layout.querySelector('now-record-form-section').attachShadow({mode: 'open'});
+  make(section, 'now-input', '<label for="x1">Short description</label><input id="x1" name="short_description">');
+  make(section, 'now-input', '<label for="x2">Assignment group</label><input id="x2" role="combobox">');
+  make(section, 'now-textarea', '<label for="x3">Work notes</label><textarea id="x3"></textarea>');
+  const actions = layout.querySelector('.actions');
+  const save = make(actions, 'now-button', '<button type="button">Save</button>');
+  save.shadowRoot.querySelector('button').onclick = () => {
+    const v = section.querySelector('now-input').shadowRoot.querySelector('input').value;
+    document.getElementById('out').textContent = 'saved:' + v;
+  };
+  make(actions, 'now-button-iconic', '<button type="button" aria-label="More actions">⋮</button>');
+</script>
+</body></html>

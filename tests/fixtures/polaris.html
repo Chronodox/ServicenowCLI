@@ -1,0 +1,16 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>ServiceNow (Next Experience)</title></head>
+<body>
+<!-- Next Experience: the classic form iframe lives inside nested open shadow roots -->
+<macroponent-f51912f4c700201072b211d4d8c26010></macroponent-f51912f4c700201072b211d4d8c26010>
+<script>
+  const host = document.querySelector('macroponent-f51912f4c700201072b211d4d8c26010');
+  const root = host.attachShadow({mode: 'open'});
+  root.innerHTML = '<sn-polaris-header></sn-polaris-header><sn-canvas-main></sn-canvas-main>';
+  const header = root.querySelector('sn-polaris-header').attachShadow({mode: 'open'});
+  header.innerHTML = '<input aria-label="Search" placeholder="Search"><button aria-label="All">All</button>';
+  const canvas = root.querySelector('sn-canvas-main').attachShadow({mode: 'open'});
+  canvas.innerHTML = '<iframe id="gsft_main" name="gsft_main" title="Main Content" ' +
+                     'src="/incident_form.html" style="width:900px;height:700px"></iframe>';
+</script>
+</body></html>

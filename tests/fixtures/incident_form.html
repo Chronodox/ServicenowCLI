@@ -1,0 +1,83 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Incident | New Record</title>
+<style>.form-group{margin:6px 0} label{display:inline-block;width:160px}</style>
+</head>
+<body>
+<!-- Mimics a classic UI16 form (incident.do) as rendered inside gsft_main -->
+<form id="incident.do" name="incident.do" onsubmit="return false">
+  <div id="section_head_right">
+    <button class="form_action_button header action_context btn btn-default" id="sysverb_insert"
+            data-action-name="sysverb_insert" type="submit" value="sysverb_insert"
+            onclick="document.getElementById('result').textContent='submitted:' + g_form.getValue('short_description')">Submit</button>
+    <button class="form_action_button header action_context btn btn-default" id="resolve_incident"
+            data-action-name="resolve_incident" type="button"
+            onclick="document.getElementById('result').textContent='resolved'">Resolve</button>
+  </div>
+
+  <div id="element.incident.number" class="form-group">
+    <label for="sys_readonly.incident.number"><span class="label-text">Number</span></label>
+    <input id="sys_readonly.incident.number" readonly value="INC0010001">
+    <input type="hidden" id="incident.number" value="INC0010001">
+  </div>
+
+  <div id="element.incident.caller_id" class="form-group">
+    <span id="status.incident.caller_id" mandatory="true" class="required-marker"
+          aria-label="Mandatory - must be populated before Submit">*</span>
+    <label for="sys_display.incident.caller_id"><span class="label-text">Caller</span></label>
+    <input type="hidden" id="incident.caller_id" name="incident.caller_id">
+    <input id="sys_display.incident.caller_id" name="sys_display.incident.caller_id"
+           onchange="document.getElementById('incident.caller_id').value='6816f79cc0a8016401c5a33be04be441'">
+  </div>
+
+  <div id="element.incident.state" class="form-group">
+    <label for="incident.state"><span class="label-text">State</span></label>
+    <select id="incident.state" name="incident.state">
+      <option value="1">New</option><option value="2">In Progress</option><option value="6">Resolved</option>
+    </select>
+  </div>
+
+  <div id="element.incident.active" class="form-group">
+    <input type="hidden" id="incident.active" value="true">
+    <label for="ni.incident.active"><span class="label-text">Active</span></label>
+    <input type="checkbox" id="ni.incident.active" checked>
+  </div>
+
+  <div id="element.incident.short_description" class="form-group">
+    <span id="status.incident.short_description" class="required-marker" mandatory="true">*</span>
+    <label for="incident.short_description"><span class="label-text">Short description</span></label>
+    <input type="hidden" id="sys_original.incident.short_description">
+    <input id="incident.short_description" name="incident.short_description">
+  </div>
+
+  <div id="element.incident.description" class="form-group">
+    <label for="incident.description"><span class="label-text">Description</span></label>
+    <textarea id="incident.description" name="incident.description"></textarea>
+  </div>
+
+  <div id="element.incident.u_cost_center" class="form-group">
+    <label for="incident.u_cost_center"><span class="label-text">Cost center</span></label>
+    <input id="incident.u_cost_center">
+  </div>
+
+  <!-- UI16 renders the same buttons again at the bottom of the form, with the same id -->
+  <div class="form_action_button_container">
+    <button class="form_action_button btn btn-default" id="sysverb_insert"
+            data-action-name="sysverb_insert" type="submit">Submit</button>
+  </div>
+</form>
+<div id="result"></div>
+
+<!-- Embedded UI page (nested iframe inside gsft_main) -->
+<iframe id="approval_frame" name="approval_frame" src="/approval.html" style="width:400px;height:120px"></iframe>
+
+<script>
+  // Minimal g_form mock
+  window.g_form = {
+    _id(f) { const sd = document.getElementById('sys_display.incident.' + f);
+             return sd || document.getElementById('incident.' + f) || document.getElementById('ni.incident.' + f); },
+    getValue(f) { const e = document.getElementById('incident.' + f); return e ? e.value : ''; },
+    setValue(f, v, dv) { const e = document.getElementById('incident.' + f); if (e) e.value = v;
+                         const d = document.getElementById('sys_display.incident.' + f); if (d) d.value = dv || v; },
+  };
+</script>
+</body></html>

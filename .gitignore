@@ -1,0 +1,16 @@
+# Python / tools
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.idea/
+
+# Eigen instellingen (instance, groep) - wordt bij de eerste start aangemaakt
+instellingen.ini
+
+# Uitvoer van echte runs (kan ticket- en persoonsgegevens bevatten)
+logboek/
+automation_screenshots/
+resultaten_*.csv
+scrape_*.json
+picked_locators.py

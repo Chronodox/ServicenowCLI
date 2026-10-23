@@ -1,0 +1,14 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Slow ServiceNow</title></head>
+<body>
+<p>Loading...</p>
+<script>
+  // gsft_main shows up 1.5 s after page load, like a slow instance
+  setTimeout(() => {
+    const f = document.createElement('iframe');
+    f.id = 'gsft_main'; f.name = 'gsft_main'; f.src = '/incident_form.html';
+    f.style.cssText = 'width:900px;height:700px';
+    document.body.appendChild(f);
+  }, 1500);
+</script>
+</body></html>
